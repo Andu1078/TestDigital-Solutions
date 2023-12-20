@@ -1,0 +1,76 @@
+﻿
+<div class="row">
+    <div class="col-6 text-start">
+        <h2>Imágenes Procesadas</h2>
+    </div>
+    <div class="col-6 text-center">
+        <button class="btn btn-danger" onclick="borrarImagenes()">Borrar Imágenes</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="Col-12">
+        <div id="imagenCarrusel" class="carousel slide" data-bs-ride="carousel" style="max-width:30rem">
+            <div class="carousel-inner">
+                @for (int i = 1; i <= 20; i++)
+                {
+                    <div class="carousel-item @(i == 1 ? "active" : "")">
+                        <div class="container">
+                            <div class="row text-center">
+                                <div class="col-6">
+                                    <h4>Imagen Original</h4>
+                                    <img src="/Frames/frame_@(i).jpg" alt="Imagen Original" class="img-fluid" style="max-width: 100%;">
+                                </div>
+                                <div class="col-6">
+                                    <h4>Imagen Cambio</h4>
+                                    <img src="/FramesDiferencias/frame_con_diferencias_frame_@(i).jpg" alt="Imagen Procesada" class="img-fluid" style="max-width: 100%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#imagenCarrusel" data-bs-slide="prev" style="background-color: ##ffffff4f;">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#imagenCarrusel" data-bs-slide="next" style="background-color: ##ffffff4f;">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+   
+</div>
+
+
+
+<script>
+
+    function borrarImagenes() {
+        if (confirm("¿Estás seguro de que deseas borrar todas las imágenes?")) {
+            // Hacer una solicitud al controlador para borrar las imágenes
+            fetch('@Url.Action("BorrarImagenes", "Home")', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        // Redirigir al índice después de borrar las imágenes
+                        window.location.href = '@Url.Action("Index", "Home")';
+                    } else {
+                        console.error('Error al borrar imágenes');
+                    }
+                })
+                .catch(error => console.error('Error al borrar imágenes:', error));
+        }
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var carousel = document.getElementById('imagenCarrusel');
+        var instance = new Carousel(carousel, {
+            numVisible: 1,
+            shift: 50,
+            padding: 20
+        });
+    });
+</script>
+

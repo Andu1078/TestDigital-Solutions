@@ -1,0 +1,25 @@
+﻿@model string
+
+<h2 class="text-center p-1 m-1">Proyecto OpenCV</h2>
+
+<form method="post" asp-action="ProcesarVideo" enctype="multipart/form-data">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="videoFile">Seleccione el video:</label>
+                    <input type="file" name="videoFile" class="form-control" accept=".mp4, .avi" required />
+                </div>
+            </div>
+
+            <div class="col-6 pt-3 mt-2">
+                <button type="submit" class="btn btn-primary">Procesar Video</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</form>
